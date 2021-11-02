@@ -1,0 +1,186 @@
+
+/****************** ↓ Main ↓ *********************/
+
+.hidden{display:none!important}
+.acol{border:1px solid #d7cce7;background-color:#e4dcf0;}
+.colpick{color:#8973a8}
+.pointer:hover{cursor:pointer}
+.inline-block{display:inline-block}
+.purple{color:#8973a8}
+.purple svg{fill:#8973a8}
+.hover-purple:hover .purple{color:#7d35d4}
+.hover-purple:hover svg{fill:#7d35d4}
+.hover-purple-svg:hover{fill:#7d35d4}
+.invisible{visibility:invisible}
+.prep1{min-width:100px}
+.prep2{min-width:140px}
+.mw-160{max-width:160px}
+.mw-80{max-width:80px}
+.mw-60{max-width:60px}
+.bold{font-weight:bold}
+.purple-border{border: 1px solid #d7cce7;border-radius:.5em}
+.purple-border-angular{border: 1px solid #d7cce7}
+.pastinput {
+	padding: 0.25rem 0.75rem;
+	background-color: rgba(255, 255, 255, 0.85);
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 0.25rem;
+	color: #8e65c7;
+	margin-bottom: .25rem;
+	cursor: pointer
+}
+.pastinput:hover {
+	opacity: .8
+}
+.pastinput.disabled {opacity: .5}
+#MPcanvas svg polygon[data-dir]{cursor:pointer}
+#MPcanvas svg line[data-dir]{cursor:pointer}
+.purplesvg { fill:#444; font-family: serif}
+.height-150 { min-height:150px }
+.height-30 { min-height:30px }
+.height-200 { min-height:200px }
+.mono {font-family:monospace}
+.purple-border-top {border-top: 1px solid #d7cce7}
+#alertbox {position: fixed;bottom:20px;right:20px;z-index:1}
+.underline {text-decoration:underline}
+.big{font-size:1.2em;}
+.center{position:fixed;top:50%;left:45%}
+.now_selection{width:1.5em;}
+#visualize{position:relative}
+#popout{position:fixed;background-color:#fff;right:0;bottom:0;opacity:.85}
+
+/****************** ↓ Main (Darkmode) ↓ *********************/
+
+.darkmode {
+	background-color: #343a40;
+	color: #e4e7eb
+}
+.darkmode .purple{color:#e4e7eb}
+.darkmode .purple svg{fill:#e4e7eb}
+.darkmode .purple-border{border-color:#6b7a8a}
+.darkmode .purple-border-angular{border-color:#6b7a8a}
+.darkmode .purple-border-top {border-color:#6b7a8a}
+.darkmode .acol{border-color:#504461;background-color:#645678;}
+.darkmode .purple .acol{color:#ede0ff;}
+.darkmode .purple .acol svg{fill:#ae9bcc}
+.darkmode .hover-purple:hover{color:#c5b6d9}
+.darkmode .hover-purple:hover svg{fill:#826da3}
+.darkmode .hover-purple-svg:hover{fill:#826da3}
+
+.darkmode textarea.form-control{background-color:#343a40;border-color:#6b7a8a;color:#ced7e0}
+.darkmode input[type=text].form-control{background-color:#343a40;border-color:#6b7a8a;color:#ced7e0}
+.darkmode input[type=number].form-control{background-color:#343a40;border-color:#6b7a8a;color:#ced7e0}
+.darkmode .dropdown-menu{background-color:#343a40;border-color:#6b7a8a;}
+.darkmode .dropdown-item{color:#ced7e0}
+.darkmode .dropdown-item:hover{color:#ced7e0;background-color:#68717a}
+.darkmode .dropdown-item:focus{color:#ced7e0;background-color:#535b63}
+.darkmode .input-group-text{background-color:#3c434a;border-color:#6b7a8a;color:#ced7e0}
+.darkmode .pastinput {background-color:#343a40;border-color:#6b7a8a;color:#ced7e0}
+.darkmode .pastinput .close{color:#ced7e0;text-shadow: 0 0 0 #fff;}
+
+.darkmode #popout{background-color:#343a40;}
+
+
+/****************** ↓ Bootstrap Modifications ↓ *********************/
+
+.btn-outline-primary {
+	color: #8e65c7;
+	background-color: #fff;
+	border-color: #8e65c7;
+}
+.acol .btn-outline-primary {
+	background-color: #faf5ff;
+}
+.btn-outline-primary:hover {
+	color: #fff;
+	background-color: #8e65c7;
+	border-color: #8e65c7;
+}
+.btn-outline-primary:focus, .btn-outline-primary.focus {
+	box-shadow: 0 0 0 0.2rem rgba(100, 53, 166, 0.5);
+}
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+	color: #8e65c7;
+	background-color: transparent;
+}
+.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
+	color: #fff;
+	background-color: #8e65c7;
+	border-color: #8e65c7;
+}
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-primary.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem rgba(100, 53, 166, 0.5);
+}
+.construction{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.construction ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	position: relative;
+	margin-left: 10px;
+}
+.construction ul:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	border-left: 1px solid #d7cce7;
+}
+.construction ul li {
+	position: relative;
+	margin: 0;
+	padding: 3px 18px;
+}
+.construction ul li:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 15px;
+	left: 0;
+	width: 15px;
+	height: 0;
+	border-top: 1px solid #d7cce7;
+}
+.construction ul li:last-child:before {
+	top: 15px;
+	bottom: 0;
+	height: auto;
+	background-color: #fff;
+}
+
+/****************** ↓ Bootstrap Modifications (Darkmode) ↓ *********************/
+
+.darkmode .btn-outline-primary {
+	background-color:#343a40;border-color:#6b7a8a;color:#ced7e0
+}
+.darkmode .acol .btn-outline-primary {
+	background-color:#343a40
+}
+.darkmode .btn-outline-primary:hover {
+	color: #fff;
+	background-color: #8e65c7;
+	border-color: #8e65c7;
+}
+.darkmode .btn-outline-primary.disabled, .btn-outline-primary:disabled {
+	color: #e4e7eb;
+	background-color: transparent;
+}
+.darkmode .construction ul:before {
+	border-left: 1px solid #e4e7eb;
+}
+.darkmode .construction ul li:before {
+	border-top: 1px solid #e4e7eb;
+}
+.darkmode .construction ul li:last-child:before {
+	background-color:#343a40;
+}
