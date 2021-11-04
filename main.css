@@ -59,6 +59,10 @@
 	border-top-left-radius: 5px;
 	padding-left: 5px;
 }
+a[href^=http]{
+	color:#8973a8;
+	text-decoration: underline;
+}
 
 /****************** ↓ Main (Darkmode) ↓ *********************/
 
@@ -90,9 +94,6 @@
 .darkmode .pastinput .close{color:#ced7e0;text-shadow: 0 0 0 #fff;}
 
 .darkmode #popout{background-color:#343a40;border-color: #6b7a8a;opacity: 1;}
-
-.darkmode .form-control.is-invalid {border-color: #dc3545!important;}
-.darkmode .form-control.is-valid {border-color: #28a745!important;}
 
 /****************** ↓ Bootstrap Modifications ↓ *********************/
 
@@ -196,3 +197,6 @@
 .darkmode .construction ul li:last-child:before {
 	background-color:#343a40;
 }
+
+.darkmode .form-control.is-invalid {border-color: #dc3545!important;}
+.darkmode .form-control.is-valid {border-color: #28a745!important;}

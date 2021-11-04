@@ -423,12 +423,24 @@
 			<div class="col">
 				<div class="purple bold mb-2">マテリアルポイント(input_mp.dat) 内容</div>
 				<textarea class="form-control height-200 mono" placeholder="ファイル内容はここに表示されます" id="filecontent" onclick="this.focus();this.select()" readonly="readonly"></textarea>
-				<input class="btn btn-outline-primary mt-2" type="button" value="input_mp.datを保存" id="savefile">
+				<button class="btn btn-outline-primary mt-2" id="savefile">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+						<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+					</svg>
+					&nbsp;input_mp.datを保存
+				</button>
 			</div>
 			<div class="col">
 				<div class="purple bold mb-2">APDI入力ファイル(input_apdi.dat) 内容</div>
 				<textarea class="form-control height-200 mono" placeholder="ファイル内容はここに表示されます" id="filecontent_apdi" onclick="this.focus();this.select()" readonly="readonly" wrap="off"></textarea>
-				<input class="btn btn-outline-primary mt-2" type="button" value="input_apdi.datを保存" id="saveapdifile">
+				<button class="btn btn-outline-primary mt-2" id="saveapdifile">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+						<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+					</svg>
+					&nbsp;input_apdi.datを保存
+				</button>
 			</div>
 		</div>
 		
@@ -444,7 +456,12 @@
 		
 		<div class="mt-4 mb-4 row">
 			<div class="p-3 mr-2 purple-border col">
-				<div class="purple bold">プレビュー設定</div>
+				<div class="purple bold">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+						<path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+				  	</svg>
+					&nbsp;プレビュー設定
+				</div>
 				<div class="form-inline ml-2">
 					<label class="purple mt-2 my-1">MP円の半径 :<input type="number" class="form-control ml-2 mr-2 mw-80" value="1" id="mp_radius">px</label>
 					<div class="custom-control custom-checkbox ml-4 my-1">
@@ -491,11 +508,23 @@
 						<label class="custom-control-label pointer purple" for="auto_fontsize">自動設定</label>
 					</div>
 				</div>
-				<input class="btn btn-outline-primary mt-3" type="button" value="SVG再描画" id="submit-preview">
+				<button class="btn btn-outline-primary mt-3" id="submit-preview">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+						<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+				  	</svg>
+					  &nbsp;再描画
+				</button>
 			</div>
 			
 			<div class="purple-border purple p-3 col">
-				<div class="purple bold mb-2">ファイルからSVGを描画</div>
+				<div class="purple bold mb-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+						<path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+						<path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+				  	</svg>
+					  &nbsp;ファイルから描画
+				</div>
 				<div class="form-group">
 					<label for="readinputapdi">input_apdiを読み込み</label>
 					<input type="file" class="form-control-file" id="readinputapdi">
@@ -505,16 +534,28 @@
 					<input type="file" class="form-control-file" id="readinputmp">
 				</div>
 				<div class="form-group mt-4 pt-3 purple-border-top" id="result_droparea">
-					<label for="readresult">結果データを読み込み (beta)</label>
+					<label for="readresult">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+							<path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
+					  	</svg>
+						&nbsp;結果データを読み込み
+					</label>
 					<input type="file" class="form-control-file" id="readresult" multiple webkitdirectory>
 					<small>プロジェクトのフォルダを選択. Chrome系のブラウザでのみ動作します.</small>
 				</div>
 			</div>
 		</div>
+
 		<div id="save_buttons" class="hidden">
 			<div class="form-inline">
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-outline-primary dropdown-toggle mr-3" data-toggle="dropdown">画像ファイルを保存</button>
+					<button type="button" class="btn btn-outline-primary dropdown-toggle mr-3" data-toggle="dropdown">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+							<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+							<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+						</svg>
+						&nbsp;
+					画像ファイルを保存</button>
 					<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 						<a class="dropdown-item" href="#" id="savesvgfile">Vectorファイル(.svg)として保存</a>
 						<a class="dropdown-item" href="#" id="savejpgfile">JPEGファイル(.jpg)として保存</a>
@@ -646,7 +687,13 @@
 						
 						<div class="form-inline purple-border-top mt-3 pt-3">
 							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-outline-primary dropdown-toggle mr-3" data-toggle="dropdown">現在フレームを保存</button>
+								<button type="button" class="btn btn-outline-primary dropdown-toggle mr-3" data-toggle="dropdown">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+										<path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+										<path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+									</svg>
+									&nbsp;現在フレームを保存
+								</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item" href="#" id="visu_savesvgfile">Vectorファイル(.svg)として保存</a>
 									<a class="dropdown-item" href="#" id="visu_savejpgfile">JPEGファイル(.jpg)として保存</a>
@@ -659,7 +706,13 @@
 							</div>
 						</div>
 						<div class="mt-3">
-							<button type="button" class="btn btn-outline-primary mr-1" id="visu_savezipfile">連番ファイルを保存
+							<button type="button" class="btn btn-outline-primary mr-1" id="visu_savezipfile">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-reels-fill" viewBox="0 0 16 16">
+									<path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+									<path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+									<path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z"/>
+								</svg>
+								&nbsp;連番ファイルを保存
 								<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="bi bi-circle-fill pointer" viewBox="0 0 16 16" id="rec_icon">
 									<circle cx="8" cy="8" r="8" fill="#eb1e1e" />
 								</svg>
@@ -697,6 +750,9 @@
 				<div class="col col-sm-1"><img src="buffer.png" width="100%"></div>
 				<div class="col col-sm-auto purple pt-4">左図のような形のAPDI要素をバッファ(Buffer)要素として用いる.<br>バッファ要素の左右で要素幅が倍になっている.</div>
 			</div>
+		</div>
+		<div class="mt-4">
+			Powered by <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="https://stuk.github.io/jszip/" target="_blank">JSZip</a>, <a href="https://github.com/polygonplanet/encoding.js/blob/master/README_ja.md" target="_blank">encoding.js</a>
 		</div>
 	</div>
 	<div id="popout" class="hidden">
