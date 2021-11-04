@@ -551,8 +551,8 @@ function onload(){
 	$("[data-id=visu_play]").on('click', function(){
 		if (!visu_autoplay){
 			visu_autoplay = true
-			$("autoplay_dt").trigger("change")
-			$("autoplay_timeout").trigger("change")
+			autoplay_dt = parseInt($("#autoplay_dt").val())
+			autoplay_timeout = parseInt($("#autoplay_timeout").val())
 			visualize_autoplay()
 		}
 	})
@@ -570,7 +570,7 @@ function onload(){
 			read_and_update_vpos()
 		}
 	})
-	$("#autoplay_timeout").on('change', function(e){
+	$("#autoplay_timeout").on('input', function(e){
 		let valu = parseInt($(e.target).val())
 		if (!isNaN(valu) ){
 			if (valu < 1){
@@ -583,7 +583,7 @@ function onload(){
 			autoplay_timeout = valu
 		}
 	})
-	$("#autoplay_dt").on('change', function(){
+	$("#autoplay_dt").on('input', function(e){
 		let valu = parseInt($(e.target).val())
 		if (!isNaN(valu) ){
 			if (valu < 1){
@@ -630,7 +630,7 @@ function onload(){
 	}
 	document.addEventListener('scroll', function(e) {
 		if (!$("#visualize").hasClass("hidden")){
-			if ($('[data-id=visu_time]').offset().top < $(window).scrollTop()) {
+			if ($("#hide_pop").offset().top < $(window).scrollTop()+$(window).height()) {
 				$("#popout").removeClass("hidden")
 			} else {
 				$("#popout").addClass("hidden")
@@ -643,8 +643,8 @@ function onload(){
 			if (visu_autoplay) {
 				visu_autoplay = false
 			} else if (visu_status !== "not_visualized") {
-				$("autoplay_dt").trigger("change")
-				$("autoplay_timeout").trigger("change")
+				autoplay_dt = parseInt($("#autoplay_dt").val())
+				autoplay_timeout = parseInt($("#autoplay_timeout").val())
 				visu_autoplay = true
 				visualize_autoplay()
 			}

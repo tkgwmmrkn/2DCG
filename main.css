@@ -42,17 +42,19 @@
 .height-200 { min-height:200px }
 .mono {font-family:monospace}
 .purple-border-top {border-top: 1px solid #d7cce7}
-#alertbox {position: fixed;bottom:20px;right:20px;z-index:100}
 .underline {text-decoration:underline}
 .big{font-size:1.2em;}
 .center{position:fixed;top:50%;left:45%}
 .now_selection{width:1.5em;}
 #visualize{position:relative}
-#popout{
+.fix_custom{
 	position:fixed;
-	background-color:#fff;
 	right:0;
 	bottom:0;
+	z-index:90;
+}
+#popout{
+	background-color:#fff;
 	opacity:.85;
 	border-left:1px solid #8e65c7;
 	border-top:1px solid #8e65c7;

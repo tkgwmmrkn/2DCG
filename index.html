@@ -10,7 +10,6 @@
 <body class="darkmode">
 	<div class="container pb-4">
 		<h1 class="mt-4 mb-4">MPM-APDIインプット作成</h1>
-		<div id="alertbox"></div>
 		<div class="purple mb-3">
 			<div class="custom-control custom-switch">
 				<input type="checkbox" class="custom-control-input pointer" id="darkmode_switch" checked>
@@ -685,7 +684,7 @@
 							</div>
 						</div>
 						
-						<div class="form-inline purple-border-top mt-3 pt-3">
+						<div class="form-inline purple-border-top mt-3 pt-3" id="hide_pop">
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-outline-primary dropdown-toggle mr-3" data-toggle="dropdown">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
@@ -755,36 +754,39 @@
 			Powered by <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="https://stuk.github.io/jszip/" target="_blank">JSZip</a>, <a href="https://github.com/polygonplanet/encoding.js/blob/master/README_ja.md" target="_blank">encoding.js</a>
 		</div>
 	</div>
-	<div id="popout" class="hidden">
-		<div class="form-inline p-3 purple">
-			<span data-id="visu_first" class="hover-purple pointer ml-1">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-backward-fill" viewBox="0 0 16 16">
-					<path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z"/>
-				</svg>
-			</span>
-			<span data-id="visu_prev" class="hover-purple pointer ml-2">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-start-fill" viewBox="0 0 16 16">
-					<path d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.54-.313 1.232.066 1.232.696v7.384c0 .63-.692 1.01-1.232.697L5 8.753V12a.5.5 0 0 1-1 0V4z"/>
-				</svg>
-			</span>
-			<input type="number" class="form-control ml-2 mw-80" value="1" data-id="visu_time">
-			<span data-id="visu_next" class="hover-purple pointer ml-2">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-end-fill" viewBox="0 0 16 16">
-					<path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
-				</svg>
-			</span>
-			<span data-id="visu_play" class="hover-purple pointer ml-2">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-					<path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-				</svg>
-			</span>
-			<span data-id="visu_pause" class="hover-purple pointer ml-2">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
-					<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
-				</svg>
-			</span>
-			<div class="form-group">
-				<input type="range" class="form-control-range pointer ml-4" data-id="visu_seekbar" min="0.01" max="1.00" step="0.01" value="0.01">
+	<div class="fix_custom">
+		<div id="alertbox" class="mb-4 mr-4"></div>
+		<div id="popout" class="hidden">
+			<div class="form-inline p-3 purple">
+				<span data-id="visu_first" class="hover-purple pointer ml-1">
+					<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-backward-fill" viewBox="0 0 16 16">
+						<path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z"/>
+					</svg>
+				</span>
+				<span data-id="visu_prev" class="hover-purple pointer ml-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-start-fill" viewBox="0 0 16 16">
+						<path d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.54-.313 1.232.066 1.232.696v7.384c0 .63-.692 1.01-1.232.697L5 8.753V12a.5.5 0 0 1-1 0V4z"/>
+					</svg>
+				</span>
+				<input type="number" class="form-control ml-2 mw-80" value="1" data-id="visu_time">
+				<span data-id="visu_next" class="hover-purple pointer ml-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-end-fill" viewBox="0 0 16 16">
+						<path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
+					</svg>
+				</span>
+				<span data-id="visu_play" class="hover-purple pointer ml-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+						<path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+					</svg>
+				</span>
+				<span data-id="visu_pause" class="hover-purple pointer ml-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+						<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+					</svg>
+				</span>
+				<div class="form-group">
+					<input type="range" class="form-control-range pointer ml-4" data-id="visu_seekbar" min="0.01" max="1.00" step="0.01" value="0.01">
+				</div>
 			</div>
 		</div>
 	</div>
