@@ -150,3 +150,17 @@ function getHighlightRGB(rgb){
 	b = Math.max(parseInt(b*0.5), 0)
 	return "rgb("+r+","+g+","+b+")"
 }
+
+/**
+ * escape HTML special chars (important)
+ * @param {string} str 
+ * @return {string} escaped string
+ */
+function escape_HTML_special_chars(str) {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}

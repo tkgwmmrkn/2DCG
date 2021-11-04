@@ -42,13 +42,23 @@
 .height-200 { min-height:200px }
 .mono {font-family:monospace}
 .purple-border-top {border-top: 1px solid #d7cce7}
-#alertbox {position: fixed;bottom:20px;right:20px;z-index:1}
+#alertbox {position: fixed;bottom:20px;right:20px;z-index:100}
 .underline {text-decoration:underline}
 .big{font-size:1.2em;}
 .center{position:fixed;top:50%;left:45%}
 .now_selection{width:1.5em;}
 #visualize{position:relative}
-#popout{position:fixed;background-color:#fff;right:0;bottom:0;opacity:.85}
+#popout{
+	position:fixed;
+	background-color:#fff;
+	right:0;
+	bottom:0;
+	opacity:.85;
+	border-left:1px solid #8e65c7;
+	border-top:1px solid #8e65c7;
+	border-top-left-radius: 5px;
+	padding-left: 5px;
+}
 
 /****************** ↓ Main (Darkmode) ↓ *********************/
 
@@ -79,8 +89,10 @@
 .darkmode .pastinput {background-color:#343a40;border-color:#6b7a8a;color:#ced7e0}
 .darkmode .pastinput .close{color:#ced7e0;text-shadow: 0 0 0 #fff;}
 
-.darkmode #popout{background-color:#343a40;}
+.darkmode #popout{background-color:#343a40;border-color: #6b7a8a;opacity: 1;}
 
+.darkmode .form-control.is-invalid {border-color: #dc3545!important;}
+.darkmode .form-control.is-valid {border-color: #28a745!important;}
 
 /****************** ↓ Bootstrap Modifications ↓ *********************/
 

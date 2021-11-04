@@ -355,6 +355,71 @@ function onload(){
 			$("#rec_icon").removeClass("hidden")
 		}
 	})
+	$("#visu_config_submit").on('click', function(){
+		for (const inv of vinvalid_config) {
+			if ($("#visu_config_"+inv).hasClass("is-invalid")){
+				push_alert("入力が未完了です．")
+				return
+			}
+		}
+		vconfig["tnd"] = Math.round((vconfig["xlen"]/vconfig["gridw"] + 1)*(vconfig["ylen"]/vconfig["gridw"] + 1))
+		read_vpos()
+	})
+	$("#visu_config_smps").on('change', function(e){
+		const valu = parseInt($(e.target).val())
+		if (isNaN(valu)){
+			$(e.target).addClass("is-invalid")
+			$(e.target).removeClass("is-valid")
+		} else {
+			$(e.target).removeClass("is-invalid")
+			$(e.target).addClass("is-valid")
+			vconfig["smps"] = valu
+		}
+	})
+	$("#visu_config_xlen").on('change', function(e){
+		const valu = parseFloat($(e.target).val())
+		if (isNaN(valu)){
+			$(e.target).addClass("is-invalid")
+			$(e.target).removeClass("is-valid")
+		} else {
+			$(e.target).removeClass("is-invalid")
+			$(e.target).addClass("is-valid")
+			vconfig["xlen"] = valu
+		}
+	})
+	$("#visu_config_ylen").on('change', function(e){
+		const valu = parseFloat($(e.target).val())
+		if (isNaN(valu)){
+			$(e.target).addClass("is-invalid")
+			$(e.target).removeClass("is-valid")
+		} else {
+			$(e.target).removeClass("is-invalid")
+			$(e.target).addClass("is-valid")
+			vconfig["ylen"] = valu
+		}
+	})
+	$("#visu_config_gridw").on('change', function(e){
+		const valu = parseFloat($(e.target).val())
+		if (isNaN(valu)){
+			$(e.target).addClass("is-invalid")
+			$(e.target).removeClass("is-valid")
+		} else {
+			$(e.target).removeClass("is-invalid")
+			$(e.target).addClass("is-valid")
+			vconfig["gridw"] = valu
+		}
+	})
+	$("#visu_config_doc").on('change', function(e){
+		const valu = parseFloat($(e.target).val())
+		if (isNaN(valu)){
+			$(e.target).addClass("is-invalid")
+			$(e.target).removeClass("is-valid")
+		} else {
+			$(e.target).removeClass("is-invalid")
+			$(e.target).addClass("is-valid")
+			vconfig["doc"] = valu
+		}
+	})
 	$("#submit-addNCOND").on('click', function(){
 		let x1 = parseFloat($("#ncond_x1").val())
 		let y1 = parseFloat($("#ncond_y1").val())
@@ -484,8 +549,12 @@ function onload(){
 		read_and_update_vpos()
 	})
 	$("[data-id=visu_play]").on('click', function(){
-		setTimeout(visualize_autoplay, 400, 400)
-		visu_autoplay = true
+		if (!visu_autoplay){
+			visu_autoplay = true
+			$("autoplay_dt").trigger("change")
+			$("autoplay_timeout").trigger("change")
+			visualize_autoplay()
+		}
 	})
 	$("[data-id=visu_pause]").on('click', function(){
 		visu_autoplay = false
@@ -499,6 +568,32 @@ function onload(){
 		if (next_time !== time) {
 			time = next_time
 			read_and_update_vpos()
+		}
+	})
+	$("#autoplay_timeout").on('change', function(e){
+		let valu = parseInt($(e.target).val())
+		if (!isNaN(valu) ){
+			if (valu < 1){
+				valu = 1
+				$(e.target).val(valu)
+			} else if (valu > 1000){
+				valu = 1000
+				$(e.target).val(valu)
+			}
+			autoplay_timeout = valu
+		}
+	})
+	$("#autoplay_dt").on('change', function(){
+		let valu = parseInt($(e.target).val())
+		if (!isNaN(valu) ){
+			if (valu < 1){
+				valu = 1
+				$(e.target).val(valu)
+			} else if (valu > 1000){
+				valu = 1000
+				$(e.target).val(valu)
+			}
+			autoplay_dt = valu
 		}
 	})
 	$("#legend_e").on('change', function(e){
@@ -548,8 +643,10 @@ function onload(){
 			if (visu_autoplay) {
 				visu_autoplay = false
 			} else if (visu_status !== "not_visualized") {
-				setTimeout(visualize_autoplay, 400, 400)
+				$("autoplay_dt").trigger("change")
+				$("autoplay_timeout").trigger("change")
 				visu_autoplay = true
+				visualize_autoplay()
 			}
 		}
 	}).register_onkeydown()
@@ -558,12 +655,11 @@ function onload(){
 			e.preventDefault()
 			if (visu_autoplay) return
 			if (visu_status !== "ready") return
-			if (time < visu_num_steps){
-				//time++
-				//todo
-				time += 3
-				read_and_update_vpos()
+			time += autoplay_dt
+			if (time > visu_num_steps){
+				time = visu_num_steps
 			}
+			read_and_update_vpos()
 		}
 	}).register_onkeydown()
 	new Keybind("ArrowLeft", false, false, false, (e) => {
@@ -571,12 +667,11 @@ function onload(){
 			e.preventDefault()
 			if (visu_autoplay) return
 			if (visu_status !== "ready") return
-			if (time > 1){
-				//time--
-				//todo
-				time -= 3
-				read_and_update_vpos()
+			time -= autoplay_dt
+			if (time < 0){
+				time = 1
 			}
+			read_and_update_vpos()
 		}
 	}).register_onkeydown()
 }

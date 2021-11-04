@@ -42,6 +42,7 @@ var vinvalid_config = []
 var vmpvpos = {}
 
 var autoplay_dt = 1
+var autoplay_timeout = 10
 
 function vtrx(x){
 	return vxoffset + Math.round(x * vwidth / vlenx)
@@ -204,8 +205,6 @@ function read_config(){
 			vinvalid_config = []
 			let str = Encoding.convert(e.target.result, 'UNICODE', 'SJIS')
 			let lines = str.split("\n")
-			let rawconfig = []
-			let para = 0
 			let readerror = false
 			
 			for (let i = 0;i < lines.length;i++){
@@ -242,20 +241,6 @@ function read_config(){
 			time = 1
 			if (readerror) {
 				push_alert("configファイルの読み込みに失敗. 手動で入力してください", 2, "readconfigerror")
-				$("<input>", {
-					"value": "configを適用",
-					"type" : "button",
-					"class": "btn btn-outline-primary",
-					"click": (e)=>{
-						for (const inv of vinvalid_config) {
-							if ($("#visu_config_"+inv).hasClass("is-invalid")){
-								return
-							}
-						}
-						vconfig["tnd"] = Math.round((vconfig["xlen"]/vconfig["gridw"] + 1)*(vconfig["ylen"]/vconfig["gridw"] + 1))
-						read_vpos()
-					}
-				}).appendTo("#visu_config_error")
 				$("#visu_config_error").removeClass("hidden")
 			} else {
 				vconfig["tnd"] = Math.round((vconfig["xlen"]/vconfig["gridw"] + 1)*(vconfig["ylen"]/vconfig["gridw"] + 1))
@@ -275,36 +260,11 @@ function read_config(){
 function config_input_confirm(id){
 	if (!vconfig.hasOwnProperty(id) || isNaN(vconfig[id])){
 		vinvalid_config.push(id)
-		let input = $("<input>", {
-			"class": "form-control ml-2 mr-3 mw-160 is-invalid",
-			"type":"text",
-			"id": "visu_config_"+id,
-			"data-id": id,
-			"change": function(e){
-				let valu = parseFloat($(e.target).val())
-				if (isNaN(valu)){
-					$(e.target).addClass("is-invalid")
-					$(e.target).removeClass("is-valid")
-				} else {
-					$(e.target).removeClass("is-invalid")
-					$(e.target).addClass("is-valid")
-					vconfig[$(e.target).data("id")] = valu
-				}
-			}
-		})
-		let label = $("<label>", {
-			"class": "purple",
-			"text": id+"を入力"
-		})
-		//let wrapper = $("<div>", {
-		//	"class": "form-inline mb-1"
-		//})
-		let wrapper = $("<span>")
-		input.appendTo(label)
-		label.appendTo(wrapper)
-		wrapper.appendTo("#visu_config_error")
+		$(`#visu_config_${id}`).parent().removeClass("hidden")
+		$(`#visu_config_${id}`).trigger("change")
 		return true
 	}
+	$(`#visu_config_${id}`).parent().addClass("hidden")
 	return false
 }
 
@@ -659,7 +619,7 @@ function on_folder_dropped(files){
 	
 	for (let i = 0;i < files.length;i++){
 		let file = files[i]
-		if (!/\.dat$/.test(file.name)) continue
+		if (!/\.dat$/i.test(file.name)) continue
 		let path = file.webkitRelativePath
 		let _s = path.split("/")
 		path_file[path] = file
@@ -693,7 +653,7 @@ function on_folder_dropped(files){
 function on_file_selected(file){
 	if (file_select_phase === "config"){
 		$("#select_config").addClass("text-success")
-		$("#select_config").html(checkedSVG+"1. configファイルを選択 ("+file.webkitRelativePath+")")
+		$("#select_config").html(checkedSVG+"1. configファイルを選択 ("+escape_HTML_special_chars(file.webkitRelativePath)+")")
 		
 		$("#file_select").append($("<p>", {
 			"html": uncheckedSVG + "2. 頂点時系列データvertex_posファイルを選択 または",
@@ -713,7 +673,7 @@ function on_file_selected(file){
 		if (file == null) {
 			$("#select_vpos").html(checkedSVG+"2. 頂点時系列データvertex_posファイルを選択 または<span class=\"ml-1\">スキップ</span> (なし)")
 		} else {
-			$("#select_vpos").html(checkedSVG+"2. 頂点時系列データvertex_posファイルを選択 または<span class=\"ml-1\">スキップ</span> ("+file.webkitRelativePath+")")
+			$("#select_vpos").html(checkedSVG+"2. 頂点時系列データvertex_posファイルを選択 または<span class=\"ml-1\">スキップ</span> ("+escape_HTML_special_chars(file.webkitRelativePath)+")")
 		}
 		
 		$("#file_select").append($("<p>", {
@@ -732,7 +692,7 @@ function on_file_selected(file){
 		}
 		$("#select_output").addClass("text-success")
 		$("#select_output").attr("data-path", file.webkitRelativePath)
-		$("#select_output").html(checkedSVG+"3. 読み込む結果データファイルを選択 ("+file.webkitRelativePath+") [変更可能]")
+		$("#select_output").html(checkedSVG+"3. 読み込む結果データファイルを選択 ("+escape_HTML_special_chars(file.webkitRelativePath)+") [変更可能]")
 		v_output_file = file
 		
 		$("#visualize_settings").removeClass("hidden")
@@ -768,7 +728,6 @@ function render_recursive(dir, parent_ul){
 				return a.name.localeCompare(b.name, "ja")
 			}
 		}
-		return 0
 	})
 	for (let i = 0; i < dir.children.length; i++){
 		let child = dir.children[i]
@@ -816,6 +775,7 @@ function render_recursive(dir, parent_ul){
 
 
 function update_with_reading_output(){
+	visu_status = "not_visualized"
 	try {
 		if (zip_status === "monitoring"){
 			add_zip_que(vsvg, false)
@@ -918,17 +878,18 @@ function read_and_update_vpos(){
 	}
 }
 
-function visualize_autoplay(timeout){
-	autoplay_dt = parseInt($("#autoplay_dt").val())
+function visualize_autoplay(){
 	if (visu_autoplay) {
-		if (visu_status !== "ready") {
-			setTimeout(visualize_autoplay, timeout, timeout)
+		if (visu_status !== "ready") {//not visualized
+			setTimeout(visualize_autoplay, autoplay_timeout)
 		} else {
-			if (time+autoplay_dt <= visu_num_steps){
-				time += autoplay_dt
-				read_and_update_vpos()
-				setTimeout(visualize_autoplay, timeout, timeout)
+			time += autoplay_dt
+			if (time > visu_num_steps){
+				time = visu_num_steps
+			} else {
+				setTimeout(visualize_autoplay, autoplay_timeout)
 			}
+			read_and_update_vpos()
 		}
 	}
 }
