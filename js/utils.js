@@ -56,7 +56,7 @@ function push_alert(msg, lvl, id){
 			"data-id": id,
 			"data-count": "1",
 			"class": "alert alert-"+style+" alert-dismissible fade show"
-		}).html(msg).append($("<button>", {
+		}).html(escape_HTML_special_chars(msg)).append($("<button>", {
 			"type": "button",
 			"class": "close", 
 			"data-dismiss": "alert"
@@ -163,4 +163,14 @@ function escape_HTML_special_chars(str) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+}
+
+/**
+ * is the KeyboardEvent is for some type of form
+ * @param {KeyboardEvent} e 
+ * @returns {boolean}
+ */
+function isInputingKeypressEvent(e){
+    return /select|textarea/i.test(e.target.nodeName) 
+        || (/input/i.test(e.target.nodeName) && /text|number/.test(e.target.type))
 }

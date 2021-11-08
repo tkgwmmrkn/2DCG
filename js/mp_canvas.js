@@ -9,7 +9,7 @@
   - 横長バッファ実装
   - SVG defs 使用
   - SVG 色追加
-  - contextmenu 色指定, 座標・IDを表示
+  - 色指定, 座標を表示
  */
  
 const canvas = document.getElementById("MPcanvas")

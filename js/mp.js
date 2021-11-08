@@ -71,10 +71,10 @@ function convertMP(){
 		let x = mp_val.pos.x
 		let y = mp_val.pos.y
 		let mm = mp_val.mm
-		let iid = indentify_int(id,5)
-		let ix = indentify_float(x,5,10)
-		let iy = indentify_float(y,5,10)
-		let imm = indentify_int(mm,5)
+		let iid = indentify_int(id,5)//I5
+		let ix = indentify_float(x,0,10)//F10.0
+		let iy = indentify_float(y,0,10)//F10.0
+		let imm = indentify_int(mm,5)//I5
 		let line = iid+ix+iy+imm+"\n"
 		content += line
 	}

@@ -68,7 +68,12 @@ function onload(){
 		let x2 = parseFloat($("#MPx2-fromXY").val())
 		let y2 = parseFloat($("#MPy2-fromXY").val())
 		let interval = parseFloat($("#MPinterval-fromXY").val())
-		if (isNaN(mm) || isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) || isNaN(interval)) return
+		if (isNaN(mm) || isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) || isNaN(interval)) {
+			push_alert("入力に問題があります")
+			return
+		} else if (interval < 0.00000001) {
+			push_alert(`解像度${gridWidth}は10文字の実数で表現できない解像度である可能性が高いです。`)
+		}
 		addMP_fromXY(mm,x1,y1,x2,y2,interval)
 		convertMP()
 		convertInputAPDI()
@@ -102,7 +107,12 @@ function onload(){
 		let is_rb_tri = $("#rb-mp-fromgrid").prop("checked")
 		let is_lt_tri = $("#lt-mp-fromgrid").prop("checked")
 		let is_rt_tri = $("#rt-mp-fromgrid").prop("checked")
-		if (isNaN(mm) || isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) || isNaN(gridWidth) || isNaN(numInGrid)) return
+		if (isNaN(mm) || isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) || isNaN(gridWidth) || isNaN(numInGrid)) {
+			push_alert("入力に問題があります", 3)
+			return
+		} else if (gridWidth < 0.00000001) {
+			push_alert(`解像度${gridWidth}は10文字の実数で表現できない解像度である可能性が高いです。`)
+		}
 		addMP_fromGrid(mm,x1,y1,x2,y2,gridWidth,numInGrid, is_lb_tri, is_rb_tri, is_lt_tri, is_rt_tri)
 		convertMP()
 		convertInputAPDI()
@@ -364,6 +374,8 @@ function onload(){
 		}
 		vconfig["tnd"] = Math.round((vconfig["xlen"]/vconfig["gridw"] + 1)*(vconfig["ylen"]/vconfig["gridw"] + 1))
 		read_vpos()
+		$("#alertbox [data-id=readconfigerror]").remove()
+		$("#visualize_settings").removeClass("hidden")
 	})
 	$("#visu_config_smps").on('change', function(e){
 		const valu = parseInt($(e.target).val())
@@ -473,6 +485,15 @@ function onload(){
 			return
 		}
 		input_mp_file = files[0]
+		read_input_contents()
+	})
+	$("#readconfigdat").on('change', function(e){
+		const files = e.target.files
+		if (files.length !== 1){
+			push_alert("input_mp.datを読み込めませんでした", 2)
+			return
+		}
+		config_dat_file = files[0]
 		read_input_contents()
 	})
 	$("#readresult").on('change', function(e){
@@ -638,7 +659,7 @@ function onload(){
 		}
 	})
 	new Keybind("Space", false, false, false, (e) => {
-		if (!$("#visualize").hasClass("hidden")){
+		if (!isInputingKeypressEvent(e) && !$("#visualize").hasClass("hidden")){
 			e.preventDefault()
 			if (visu_autoplay) {
 				visu_autoplay = false
@@ -651,7 +672,7 @@ function onload(){
 		}
 	}).register_onkeydown()
 	new Keybind("ArrowRight", false, false, false, (e) => {
-		if (!$("#visualize").hasClass("hidden")){
+		if (!isInputingKeypressEvent(e) && !$("#visualize").hasClass("hidden")){
 			e.preventDefault()
 			if (visu_autoplay) return
 			if (visu_status !== "ready") return
@@ -663,7 +684,7 @@ function onload(){
 		}
 	}).register_onkeydown()
 	new Keybind("ArrowLeft", false, false, false, (e) => {
-		if (!$("#visualize").hasClass("hidden")){
+		if (!isInputingKeypressEvent(e) && !$("#visualize").hasClass("hidden")){
 			e.preventDefault()
 			if (visu_autoplay) return
 			if (visu_status !== "ready") return

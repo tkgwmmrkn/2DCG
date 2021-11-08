@@ -422,13 +422,22 @@
 			<div class="col">
 				<div class="purple bold mb-2">マテリアルポイント(input_mp.dat) 内容</div>
 				<textarea class="form-control height-200 mono" placeholder="ファイル内容はここに表示されます" id="filecontent" onclick="this.focus();this.select()" readonly="readonly"></textarea>
-				<button class="btn btn-outline-primary mt-2" id="savefile">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-						<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-					</svg>
-					&nbsp;input_mp.datを保存
-				</button>
+				
+				<div class="form-inline mt-2">
+					<button class="btn btn-outline-primary" id="savefile">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+							<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+							<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+						</svg>
+						&nbsp;input_mp.datを保存
+					</button>
+					<div class="input-group ml-2 disabled">
+						<div class="input-group-prepend">
+							<span class="input-group-text">フォーマット</span>
+						</div>
+						<input type="text" class="form-control" placeholder="例：I5,2F10,I5" id="input_mp_format" value="I5,2F10,I5" disabled>
+					</div>
+				</div>
 			</div>
 			<div class="col">
 				<div class="purple bold mb-2">APDI入力ファイル(input_apdi.dat) 内容</div>
@@ -512,7 +521,7 @@
 						<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
 						<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
 				  	</svg>
-					  &nbsp;再描画
+					&nbsp;再描画
 				</button>
 			</div>
 			
@@ -531,6 +540,10 @@
 				<div class="form-group">
 					<label for="readinputmp">input_mpを読み込み</label>
 					<input type="file" class="form-control-file" id="readinputmp">
+				</div>
+				<div class="form-group">
+					<label for="readconfigdat">config.datから境界条件を読み込み</label>
+					<input type="file" class="form-control-file" id="readconfigdat">
 				</div>
 				<div class="form-group mt-4 pt-3 purple-border-top" id="result_droparea">
 					<label for="readresult">
@@ -602,7 +615,12 @@
 								<input type="text" class="form-control ml-2 mr-3 mw-160 is-invalid" value="" id="visu_config_doc">
 							</label>
 						</div>
-						<input type="button" value="configを適用" class="btn btn-outline-primary" id="visu_config_submit">
+						<button type="button" class="btn btn-outline-primary" id="visu_config_submit">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+								<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+								<path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+							</svg>
+							&nbsp;適用して読み込みを再開</button>
 					</div>
 					<div id="visualize_settings" class="mt-4 pt-3 hidden purple-border-top">
 						<div class="bold mb-2">描画設定</div>
@@ -649,7 +667,13 @@
 							</div>
 						</div>
 						<div class="mt-2">
-							<input class="btn btn-outline-primary" type="button" value="適用して再描画" id="visu_submit_setting">
+							<button class="btn btn-outline-primary" type="button" id="visu_submit_setting">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+									<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+								  </svg>
+								&nbsp;再描画
+							</button>
 							<div class="invalid-feedback hidden" id="visu_submit_invalid"></div>
 						</div>
 						<div class="mt-3 pt-3 form-inline purple-border-top">

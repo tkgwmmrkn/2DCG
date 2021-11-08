@@ -97,6 +97,8 @@ a[href^=http]{
 
 .darkmode #popout{background-color:#343a40;border-color: #6b7a8a;opacity: 1;}
 
+.darkmode .disabled{opacity: 0.5;}
+
 /****************** ↓ Bootstrap Modifications ↓ *********************/
 
 .btn-outline-primary {

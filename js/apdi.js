@@ -209,6 +209,16 @@ function addVerticalAPDIBuffer(mm, x1,y1,x2,y2,width_left,width_right){
 	}
 }
 
+/**
+ * 実装途中 Under the construction
+ * @param {*} mm 
+ * @param {*} x1 
+ * @param {*} x2 
+ * @param {*} y1 
+ * @param {*} y2 
+ * @param {*} width_top 
+ * @param {*} width_bottom 
+ */
 function addHorizontalAPDIBuffer(mm,x1,x2,y1,y2,width_top,width_bottom){
 	let group_width = Math.max(width_left, width_right)
 	let num_el_groups = Math.round(Math.abs(y2-y1) / group_width)
@@ -461,7 +471,6 @@ function convertInputAPDI(){
 
 function getArrangedAPDIArray(){
 	let a = []
-	let d = []
 	let keys = Object.keys(apditree)
 	for (let i = 0; i < keys.length; i++){
 		a.push(apditree[keys[i]])

@@ -244,6 +244,7 @@ function read_config(){
 				$("#visu_config_error").removeClass("hidden")
 			} else {
 				vconfig["tnd"] = Math.round((vconfig["xlen"]/vconfig["gridw"] + 1)*(vconfig["ylen"]/vconfig["gridw"] + 1))
+				$("#visualize_settings").removeClass("hidden")
 				read_vpos()
 			}
 		} catch (e) {
@@ -695,8 +696,11 @@ function on_file_selected(file){
 		$("#select_output").html(checkedSVG+"3. 読み込む結果データファイルを選択 ("+escape_HTML_special_chars(file.webkitRelativePath)+") [変更可能]")
 		v_output_file = file
 		
-		$("#visualize_settings").removeClass("hidden")
-		read_config()
+		if ($("#visualize_settings").hasClass("hidden")){
+			read_config()
+		} else {
+			read_output()
+		}
 	}
 }
 

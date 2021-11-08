@@ -3,10 +3,12 @@ var fileread_state = false
 
 var input_apdi_file = null
 var input_mp_file = null
+var config_dat_file = null
 
 var copied_apditree
 var copied_mptree
 var copied_vertextree
+var copied_boundarray
 
 var zip
 var zip_renban_folder
@@ -74,20 +76,23 @@ function read_input_contents(){
 	copied_apditree = jQuery.extend({}, apditree)
 	copied_vertextree = jQuery.extend({}, vertextree)
 	copied_mptree = jQuery.extend({}, mptree)
+	if (config_dat_file != null) copied_boundarray = boundarray.slice()
 	
 	apditree = {}
 	vertextree = {}
 	mptree = {}
+	if (config_dat_file != null) boundarray = []
 	
 	let mpid_mp_map = {}
 	let vid_v_map = {}
 	
 	const readermp = new FileReader()
 	const readerapdi = new FileReader()
+	const readerconfig = new FileReader()
 	
 	readermp.addEventListener('load', (e) => {
 		try {
-			let str = event.target.result
+			let str = e.target.result
 			let lines = str.split("\n")
 			for (let i  = 0; i < lines.length; i++){
 				let line = lines[i]
@@ -109,6 +114,8 @@ function read_input_contents(){
 			}
 			if ( input_apdi_file != null) {
 				readerapdi.readAsText(input_apdi_file)
+			} else if (config_dat_file != null) {
+				readerconfig.readAsText(config_dat_file, "Shift_JIS")
 			} else {
 				convertMP()
 				convertInputAPDI()
@@ -125,7 +132,7 @@ function read_input_contents(){
 	
 	readerapdi.addEventListener('load', (e) => {
 		try {
-			let str = event.target.result
+			let str = e.target.result
 			let lines = str.split("\n")
 			let phase = 0
 			let num_v, num_a
@@ -179,8 +186,60 @@ function read_input_contents(){
 					}
 				}
 			}
+			if (config_dat_file != null) {
+				readerconfig.readAsText(config_dat_file, "Shift_JIS")
+			} else {
+				convertMP()
+				convertInputAPDI()
+				drawRect()
+				//apditree = copied_apditree
+				//mptree = copied_mptree
+				//vertextree = copied_vertextree
+				fileread_state = true
+			}
+		} catch (e) {
+			push_alert(e.toString(), 3, e.toString())
+		}
+	})
+
+	readerconfig.addEventListener('load', (event) => {
+		try {
+			let str = event.target.result
+			let lines = str.split("\n")
+			let flag = false
+			
+			for (let i = 0;i < lines.length;i++){
+				const line = lines[i]
+				if (flag) {
+					if (line.startsWith("##")) {
+						flag = false
+						break
+					} else {
+						const s = line.replace(/^\s+/, "").replace(/\s+/g, " ").split(" ")
+						const x1 = nume(s[0])
+						const x2 = nume(s[1])
+						const y1 = nume(s[2])
+						const y2 = nume(s[3])
+						const xfix = s[4] === "1"
+						const yfix = s[5] === "1"
+						boundarray.push(
+							new Boundary(
+								new Pos(x1,y1), 
+								new Pos(x2,y2), 
+								xfix, 
+								yfix
+							)
+						)
+					}
+				} else {
+					if (line.startsWith("# 固相境界条件")) {
+						flag = true
+					}
+				}
+			}
 			convertMP()
 			convertInputAPDI()
+			convertNcond()
 			drawRect()
 			//apditree = copied_apditree
 			//mptree = copied_mptree
@@ -190,7 +249,8 @@ function read_input_contents(){
 			push_alert(e.toString(), 3, e.toString())
 		}
 	})
-	readermp.readAsText(input_mp_file)
+
+	if (input_mp_file != null) readermp.readAsText(input_mp_file)
 }
 
 function indentify_int(n, indent){
@@ -202,23 +262,36 @@ function indentify_int(n, indent){
 	return s
 }
 
-function indentify_float(n, k, indent){
-	let _n = Math.round(n*(10**k))/(10**k)
+/**
+ * create formated text 
+ * @param {number} n 
+ * @param {number} prec 
+ * @param {number} len 
+ * @returns {string} formated text
+ */
+function indentify_float(n, prec, len){
+	if (typeof prec !== "number" || prec === 0 || prec > len){
+		prec = len
+	}
+	let _n = Math.round(n*(10**prec))/(10**prec)
 	let s = _n+""
-	let _s = s.split(".")
-	if (_s.length > 2) console.error("_s.length > 2")
-	if (_s.length === 2){
-		s = _s[0] +"."+ _s[1].substring(0, k)
-	} else {
-		if (s.length < indent-1){
-			s=s+".0"
+	if (/e/.test(s)) push_alert(`指数表記の数値(${s}等)が混在しています。`)
+	if (s.length > len) {
+		let _s = s.split(".")
+		if (_s.length > 2) console.error("_s.length > 2")
+		if (_s.length === 2){
+			s = _s[0] +"."+ _s[1].substring(0, prec)
+		} else {
+			if (s.length < len-1){
+				s=s+".0"
+			}
 		}
 	}
 	let slen = s.length
 	//内部で決める値
-	if (indent < slen) console.error("indent < slen")
-	if (indent > 29) console.error("indent > 29")
-	s="                             ".substring(0, indent-slen)+s
+	if (len < slen) console.error("indent < slen")
+	if (len > 29) console.error("indent > 29")
+	s="                             ".substring(0, len-slen)+s
 	return s
 }
 
