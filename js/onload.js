@@ -1,3 +1,7 @@
+
+/**
+ * onload event handler. register prenty of event handlers
+ */
 function onload(){
 	let ls = localStorage.getItem("darkmode_switch")
 	if (ls && ls !== "1"){
@@ -696,7 +700,10 @@ function onload(){
 		}
 	}).register_onkeydown()
 }
-		
+
+/**
+ * Local Storage
+ */
 function initLS(){
     $("input[type=text]").each(function(i, elem){
         if (elem.hasAttribute("id")){

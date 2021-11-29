@@ -211,13 +211,13 @@ function addVerticalAPDIBuffer(mm, x1,y1,x2,y2,width_left,width_right){
 
 /**
  * 実装途中 Under the construction
- * @param {*} mm 
- * @param {*} x1 
- * @param {*} x2 
- * @param {*} y1 
- * @param {*} y2 
- * @param {*} width_top 
- * @param {*} width_bottom 
+ * @param {number} mm 
+ * @param {number} x1 
+ * @param {number} x2 
+ * @param {number} y1 
+ * @param {number} y2 
+ * @param {number} width_top 
+ * @param {number} width_bottom 
  */
 function addHorizontalAPDIBuffer(mm,x1,x2,y1,y2,width_top,width_bottom){
 	let group_width = Math.max(width_left, width_right)

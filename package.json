@@ -1,0 +1,25 @@
+{
+  "name": "2dcg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkgwmmrkn/2DCG.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tkgwmmrkn/2DCG/issues"
+  },
+  "homepage": "https://github.com/tkgwmmrkn/2DCG#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "encoding-japanese": "^1.0.30",
+    "jquery": "^3.6.0",
+    "jszip": "^3.7.1"
+  }
+}
